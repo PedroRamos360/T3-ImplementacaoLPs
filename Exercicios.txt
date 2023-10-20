@@ -1,0 +1,151 @@
+5.1
+    Implemente um
+    Aspecto que notifique o administrador do sistema
+    sempre que um saque maior que R$ 10000,00 for realizado em
+    qualquer
+    tipo de
+    conta.
+    A notificação deve conter o número da conta e
+    o valor sacado.
+    (Simule a notificação através de um
+    System.out.print...)
+    Sugestão de
+    implementação:
+    a)
+    Criar pointcut que capture chamadas de Account.debit,
+    b) Co
+    lete informações de Account e amount.
+    c)
+    I
+    mplemente
+    um
+    advice before
+    com a regra de notificação
+
+5.2
+    Implemente um Aspecto de logging para cada transação realizada em
+    Account. Para cada operação realizada, antes da mesma ser realizada,
+    deve
+    -
+    se imprimir (sysout) o nome do método, o número da conta, a
+    quantia a ser transacionada. Ao final da transação deve
+    -
+    se imprimir o
+    valor do saldo da conta.
+    Sugestão de implementação :
+    a) Criar pointcut que cap
+    ture execuções de Account.debit
+    e
+    Account.credit
+    .
+    b) Colete informações de Account e amount.
+    c) Implemente advice before e advice.after com informações da
+    transação. Estude a variável thisJointPointStaticPart para obter
+    informações da operação executada
+
+5.3
+    Implemente um Aspecto que garanta que
+    as
+    transaç
+    ões
+    de débito não
+    permita
+    m
+    que o saldo fique
+    menor que o limite de segurança
+    de R$
+    100,00.
+    Caso isso ocorra, uma exceção do tipo
+    InsufficientBalanceException deve ser sinalizada.
+
+    Sugestão de implementação :
+    a) Criar pointcut que capture chamadas de Account.debit
+    e que não
+    sejam de OverdraftAcco
+    unt.
+    b) Colete informações de Account e amount.
+    c) Implemente advice around que verifique a violação da regra e
+    execute ou não a operação de débito (proceed(..)
+    )
+
+5.4
+    Implemente um Aspecto que garanta a seguinte regra : Se um
+    cheque
+    for compensado (conta co
+    rrente ou poupança)
+    e não houver saldo
+    suficiente
+    (abaixo do limite de segurança)
+    , porém houver saldo
+    suficiente na conta de emp
+    réstimo (overdraft), o valor do
+    saque é
+    transferido para a conta corrente
+    ou poupança
+    para que a
+    operação
+    de saque
+    seja
+    realizad
+    a. Se não houver saldo suficiente na conta de
+    empréstimo a exceção InsufficientBalanceException deve ser
+    sinalizada.
+    Atente
+    -
+    se que o saldo suficiente para a transação deve
+    considerar o limite de segurança de R$100,00. Ao transferir valores
+    da conta de empr
+    éstimo para a conta corrente ou poupança o limite
+    de segurança deve ser assegurado. Por exemplo, se houver R$500,00
+    na conta de empréstimo e R$200,00 na conta corrente e um cheque
+    de R$300,00 for compensado, será feito um saque de R$200,00 da
+    conta de empr
+    éstimo para cobrir o cheque com R$100,00 e deixar
+    R$100,00 de limite de segurança na conta.
+    Sugestão de implementação :
+    a) Criar pointcut que cap
+    ture chamadas de Account.debit mas que não
+    sejam de OverdraftAccount.
+    b) Colete informações de Account e
+    amount.
+    c) Implemente advice around que verifique
+    se há sal
+    do suficiente
+    (considerando o limite de segurança) para a transação. Em caso
+    positivo, a transação é realizada. Caso contrário, é verificado se há
+    saldo na conta de empréstimo. Se houver, é feita
+    a transferência e a
+    operação de débito ocorre normalmente. Se não houver saldo na
+    conta de empréstimo, a exceção InsufficientBalanceException é
+    sinalizada
+
+5.5
+    Implemente um Aspecto que
+    adicione um valor de
+    1
+    %
+    do valor da
+    transação
+    referente a taxa bancária
+    sempre que um empréstimo for
+    realizado
+    (transferência da conta overdraft para a conta corrente)
+    .
+    As
+    taxas serão processadas no final do mês
+    por um outro sistema
+    para
+    entã
+    o ter o saldo das contas corrente e poupança atualizado
+    .
+    Sugestão de implementação :
+
+    a) Criar po
+    intcut que capture execuções da operação de transferência
+    da conta de empréstimo para contas corrente ou poupança (Aspecto
+    do item 5.4)
+    .
+    b) Colete informações de Account e amount.
+    c)
+    Registre o imposto cobrado na conta (registerTax(..)
+    )
