@@ -17,15 +17,14 @@ public aspect TransferFromOverdraft {
             	System.out.println("Fez a transferência normal");
                 proceed(amount, acc); // A transação é realizada normalmente
             } else {
-            	System.out.println("Fez a transferência na conta de empréstimo");
                 Account overdraftAccount = findOverdraftAccount(acc); // Encontre a conta de empréstimo
                 if (overdraftAccount != null) {
-                	System.out.println("Fez a transferência na conta de empréstimo 2");
+            	    System.out.println("Fez a transferência na conta de empréstimo");
                     // Faça a transferência da conta de empréstimo para a conta corrente/poupança
                     float transferAmount = (acc.getBalance() - amount) * (-1) + 100;
                     overdraftAccount.debit(transferAmount);
                     acc.credit(transferAmount);
-                    proceed(amount, acc); // O saque de 100 para o limite de segurança é realizado
+                    proceed(amount, acc); // Procede pra fazer a transação depois de pegar o dinheiro
                 }
             }
         } catch (InsufficientBalanceException e) {
