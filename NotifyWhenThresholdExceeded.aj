@@ -1,6 +1,6 @@
 package br.ufsm.lpbd.banking.aspect;
 
-// exercício 5.1 testado e funcionando
+// exercício 5.1
 
 public aspect NotifyWhenThresholdExceeded {
     before(float amount) : execution(void br.ufsm.lpbd.banking.core.Account.debit(float)) && args(amount) && if(amount > 10000) {

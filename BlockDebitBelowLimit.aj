@@ -2,7 +2,7 @@ package br.ufsm.lpbd.banking.aspect;
 import br.ufsm.lpbd.banking.core.Account;
 import br.ufsm.lpbd.banking.exception.InsufficientBalanceException;
 
-// exercício 5.3 testado, parece que funciona
+// exercício 5.3 
 
 public aspect BlockDebitBelowLimit {
 	pointcut callAccountTransaction(float amount, Account acc) : 

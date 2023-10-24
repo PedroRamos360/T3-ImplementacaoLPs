@@ -6,12 +6,13 @@ import br.ufsm.lpbd.banking.exception.InsufficientBalanceException;
 
 import java.util.List;
 
+// Exercícios 5.4 e 5.5
+
 public aspect TransferFromOverdraft {
     pointcut debitOnAccount(float amount, Account acc) :
         execution(* Account.debit(float)) && args(amount) && target(acc) && !execution(* OverdraftAccount.debit(float));
 
     void around(float amount, Account acc) throws InsufficientBalanceException : debitOnAccount(amount, acc) {
-    	System.out.println("executou");
             if (acc.getBalance() - amount >= 100) {
             	System.out.println("Fez a transferência normal");
                 proceed(amount, acc); // A transação é realizada normalmente
@@ -23,11 +24,11 @@ public aspect TransferFromOverdraft {
                 	if (overdraftAccount.getBalance() < transferAmount) {
                 		throw new InsufficientBalanceException("Saldo insuficiente na conta de empréstimo");
                 	}
-                	System.out.println("Fez a transferência na conta de empréstimo 2");
                     
                     overdraftAccount.debit(transferAmount);
+                    acc.registerTax(transferAmount * 0.01f); // exercício 5.5
                     acc.credit(transferAmount);
-                    proceed(amount, acc); // O saque de 100 para o limite de segurança é realizado
+                    proceed(amount, acc); 
                 } 
             }
     }

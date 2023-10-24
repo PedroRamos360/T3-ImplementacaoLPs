@@ -1,7 +1,7 @@
 package br.ufsm.lpbd.banking.aspect;
 import br.ufsm.lpbd.banking.core.Account;
 
-// Exercício 5.2 testado e funcionando
+// Exercício 5.2 
 
 public aspect NotifyEveryTransaction {
    pointcut callTransaction(float amount, Account acc) :
