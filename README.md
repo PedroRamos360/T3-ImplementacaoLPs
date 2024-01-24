@@ -1,2 +1,1 @@
-Os arquivos desse repositório são os aspectos que precisam ser implementados que vão ficar
-em br.ufsm.lpbd.banking.aspect no projeto real do eclipse
+Third work assignment of the Implementation of Programming Languages discipline at UFSM
